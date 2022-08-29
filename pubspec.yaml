@@ -42,7 +42,7 @@ dependencies:
   flutter_localizations: 
     sdk: flutter
     version: ^0.0.0
-
+  flutter_easyloading: ^3.0.5
   dio: ^4.0.6
   hive: ^2.2.1
   hive_flutter: ^1.1.0
@@ -51,6 +51,8 @@ dependencies:
   shimmer: ^2.0.0
   sliver_tools: ^0.2.6
   flutter_local_notifications: ^9.5.3+1
+  connectivity_plus: ^2.3.6+1
+  sunmi_printer_plus: ^2.1.01
 
 
   # The following adds the Cupertino Icons font to your application.

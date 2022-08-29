@@ -3,7 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:gopage_pos/bloc/order_bloc/order_bloc.dart';
+import 'package:gopage_pos/bloc/order_bloc/order_state.dart';
+import 'package:gopage_pos/screens/login_screen/login_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'bloc/login_bloc/login_bloc_bloc.dart';
@@ -13,6 +17,7 @@ import 'plugins/app_language.dart';
 import 'dart:async';
 
 import 'plugins/app_localizations.dart';
+import 'screens/dashboard/dashboard.dart';
 import 'screens/splash/splash_screen.dart';
 import 'style/style.dart';
 
@@ -32,6 +37,9 @@ Future<void> main() async {
     BlocProvider<LoginBlocBloc>(
       create: (context) => LoginBlocBloc(LoginBlocState.initial()),
     ),
+    BlocProvider<POSOrderBloc>(
+      create: (_) => POSOrderBloc(POSOrderState.initial()),
+    )
     //add more bloc here
   ], child: MyApp(appLanguage: appLanguage)));
 }
@@ -87,12 +95,13 @@ class _MyAppState extends State<MyApp> {
         lazy: true,
         child: Consumer<AppLanguage>(builder: (context, model, child) {
           return MaterialApp(
-              builder: (BuildContext? context, Widget? child) {
-                final data = MediaQuery.of(context!);
-                return MediaQuery(
-                    data: data.copyWith(textScaleFactor: 1),
-                    child: child ?? Container());
-              },
+              // builder: (BuildContext? context, Widget? child) {
+              //   final data = MediaQuery.of(context!);
+              //   return MediaQuery(
+              //       data: data.copyWith(textScaleFactor: 1),
+              //       child: child ?? Container());
+              // },
+              builder: EasyLoading.init(),
               color: white,
               debugShowCheckedModeBanner: false,
               supportedLocales: const [
@@ -109,7 +118,6 @@ class _MyAppState extends State<MyApp> {
               localeResolutionCallback:
                   (locale, Iterable<Locale> supportedLocales) {
                 if (locale == null) {
-                  // debugPrint("*language locale is null!!!");
                   return supportedLocales.first;
                 }
                 for (Locale supportedLocale in supportedLocales) {
@@ -119,16 +127,18 @@ class _MyAppState extends State<MyApp> {
                     return supportedLocale;
                   }
                 }
-                // debugPrint("*language to fallback ${supportedLocales.first}");
+
                 return supportedLocales.first;
               },
               title: 'Go Call',
-              theme: ThemeData(
+              theme: ThemeData(primaryColor: blueBrand
                   // primarySwatch: Colors.white,
                   ),
               initialRoute: Routers.splash,
               routes: <String, WidgetBuilder>{
                 Routers.splash: (_) => const SplashScreen(),
+                Routers.login: (_) => const LoginScreen(),
+                Routers.dashboard: (_) => const DashboardScreen()
               });
         }));
   }

@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gopage_pos/utils/route.dart';
 
 import '../../style/style.dart';
 
@@ -17,8 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Future.delayed(const Duration(seconds: 3))
+        .then((value) => Navigator.pushNamed(context, Routers.login));
   }
 
   @override

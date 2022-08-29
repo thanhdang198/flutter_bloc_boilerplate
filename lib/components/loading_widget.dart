@@ -6,6 +6,7 @@ import '../plugins/svg.dart';
 import '../style/style.dart';
 import 'loading_bar.dart';
 
+// ignore: must_be_immutable
 class LoadingWidget extends StatelessWidget {
   LoadingWidget({Key? key, required this.index}) : super(key: key);
   final int index;
